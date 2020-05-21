@@ -1,1 +1,5 @@
 __pycache__
+venv
+base.css
+tailwind.config.js
+node_modules/*
