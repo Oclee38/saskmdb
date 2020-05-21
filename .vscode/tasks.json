@@ -20,6 +20,12 @@
             "type": "shell",
             "command": "${config:python.pythonPath}",
             "args": ["${workspaceRoot}\\kmdb\\manage.py", "makemigrations"]
+        },
+        {
+            "label": "Run CSS main",
+            "type": "shell",
+            "command": "npx tailwindcss build base.css -o kmdb/main/static/css/main.css",
+            "problemMatcher": []
         }
     ]
 }
