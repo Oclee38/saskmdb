@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Add Article
+{% endblock title %}
+
+{% block content %}
+
+<div class="flex flex-col w-8/12">
+
+
+    <h1 class="text-center text-2xl text-gray-600">Add Article</h1>
+    {% if error_message %}
+    <p><strong>{{error_message}}</strong></p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <table>
+            <tr>
+                <td>
+                    <label for="name" class="font-bold">Name:</label>
+                </td>
+                <td class="">
+                    <input class="border border-orange-400 w-full" type="text" name="name" id="name">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Link" class="font-bold">URL:</label>
+                </td>
+                <td>
+                    <input class="border border-orange-400 w-full" type="url" name="Link">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="font-bold" for="cat">Category:</label>
+                </td>
+                <td>
+                    <select class="w-full border border-orange-400 " name="category" id="cat">
+                        {% for cat in categories  %}
+                        <option value="{{cat.cat_name}}">{{ cat.cat_name }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    <label class="font-bold" for="text">Content:</label>
+                </td>
+                <td>
+                    <textarea class="w-full border border-orange-400" name="content" id="content" cols="30"
+                        rows="10"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    <label class="font-bold" for="tags">Tags:</label>
+                </td>
+                <td>
+
+                    <select class="w-4/12 border border-orange-400 " name="tags" id="tags" multiple>
+                        {% for tag in tags  %}
+                        <option value="{{tag.tag_name}}">{{ tag.tag_name }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="w-full" type="submit" value="Add Article">
+                </td>
+            </tr>
+        </table>
+
+
+
+    </form>
+</div>
+<script>
+    CKEDITOR.replace('content');
+</script>
+{% endblock content %}

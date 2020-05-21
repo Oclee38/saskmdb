@@ -3,20 +3,13 @@
 Home
 {% endblock title %}
 
-{% block side-menu %}
 
-<a class="text-green-500 text-2xl flex items-center hover:text-3xl" href="/addlink">
-    <i class="fas fa-plus"></i>
-    <span class="text-orange-700 ml-4 text-xl">Add new article</span>
-</a>
-
-{% endblock side-menu %}
 {% block content %}
 
-
-<section class="flex flex-col w-full"> {% if Categories %}
+{% if user.is_authenticated %}
+<section class="flex flex-col w-10/12"> {% if Categories %}
     {% for Category in Categories  %}
-    <p class="bg-orange-200  text-center mt-5">
+    <p class="bg-orange-200   text-center mt-5">
         <a href="{% url 'main:details' Category.cat_name %}">{{ Category.cat_name }}</a>
     </p>
     {% endfor %}
@@ -24,6 +17,10 @@ Home
     <p>No Categories yet</p>
     {% endif %}
 </section>
+{% else %}
+{% include "loginform.html" %}
+{% endif %}
+
 
 
 {% endblock content %}

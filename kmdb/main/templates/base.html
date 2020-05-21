@@ -7,30 +7,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
     <script src="https://kit.fontawesome.com/c5e6701767.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.ckeditor.com/4.14.0/standard-all/ckeditor.js"></script>
     <title>SAS KMDB | {% block title %}{% endblock title %}</title>
 </head>
 
 <body>
-    <header class="flex items-center justify-around h-16 border-b border-orange-500 z-100">
+    <header class="flex items-center justify-around h-16 border-b border-orange-500 sticky top-0 bg-white">
         <div>
             <a href="/">
                 <img class="h-12" src="{% static 'main/images/logo.png' %}" alt="">
             </a></div>
         <div>
-            <a class="hover:bg-orange-600 px-4 py-2 hover:text-white rounded" href="/">Home</a>
+            {% if user.is_authenticated %}
+
+            <a class="hover:bg-orange-600 px-4 py-2 hover:text-white rounded" href="/logout">Logout</a>
+            {% endif %}
+
+            {% if user.is_superuser  %}
             <a class="hover:bg-orange-600 px-4 py-2 hover:text-white rounded" href="/admin">Admin</a>
+
+            {% endif %}
+
         </div>
     </header>
 
-    <div class="flex ">
-        <div class="flex justify-around w-2/12  h-screen bg-orange-200 pt-6 border-r border-orange-500 z-90">
+    <div class="flex">
+        {% if user.is_authenticated %}
+        <div
+            class="flex overflow-hidden justify-around w-2/12 top-0  h-screen bg-orange-200 pt-6 border-r border-orange-500 z-90">
             <section class="flex flex-col ">
-                {% block side-menu %}
+                <p class="text-center">Hi {{ user }}</p>
 
-                {% endblock side-menu %}
+                <a class="flex pt-10 text-orange-700 items-center border-b border-orange-500" href="/"><i
+                        class="fas fa-home pr-4"></i>Home</a>
+                <a class="flex pt-10 text-orange-700 items-center border-b border-orange-500 "
+                    href="{% url 'main:newarticle' %}">
+                    <i class="far fa-newspaper pr-4"></i></i>
+                    <span>
+                        Add new Article
+                    </span>
+                </a>
+                <a class="flex pt-10 text-orange-700 items-center border-b border-orange-500 "
+                    href="{% url 'main:newarticle' %}">
+                    <i class="fas fa-tags pr-4"></i>
+                    <span>
+                        Add Tags
+                    </span>
+                </a>
+                <a class="flex pt-10 text-orange-700 items-center border-b border-orange-500 "
+                    href="{% url 'main:newarticle' %}">
+                    <i class="fas fa-list pr-4"></i>
+                    <span>
+                        Add Category
+                    </span>
+                </a>
+
             </section>
         </div>
-        <section class="flex justify-around w-10/12">
+        {% endif %}
+        <section class="flex flex-stretch justify-around w-full overflow-y-auto ">
             {% block content %}
 
             {% endblock content %}

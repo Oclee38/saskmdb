@@ -1,5 +1,5 @@
 from django.db import models
-from tinymce.models import HTMLField
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 
@@ -24,7 +24,7 @@ class Article(models.Model):
     url_link = models.URLField('URL', unique=True)
     data_added = models.DateTimeField('Added on')
     category = models.ForeignKey(Categorie, on_delete=models.CASCADE)
-    text = HTMLField('Content', max_length=4069)
+    text = RichTextField('Content', max_length=4069)
     tags = models.ManyToManyField(Tag, related_name='items')
     approved = models.BooleanField(default=False)
 
