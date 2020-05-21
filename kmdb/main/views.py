@@ -1,5 +1,6 @@
 from django.shortcuts import (render, get_object_or_404, redirect)
 from datetime import datetime
+from django.views import generic
 
 from .models import Category, Item
 # Create your views here.
@@ -33,4 +34,13 @@ def addlink(request):
 
 
 def addcategory(request):
+    if request.method == 'POST':
+        cat = Category(cat_name=request.POST['name'], cat_description=request.POST['description'] )
+        cat.save()
+        return redirect('main:index')
     return render(request, 'addcat.html')
+
+
+class DetailView(generic.DetailView):
+    model = Item
+    template_name = 'links.html'

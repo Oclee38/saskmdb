@@ -1,9 +1,10 @@
 <h1>Add new Category</h1>
 
 <form method="POST">
+    {% csrf_token %}
     <p>
         <label for="name">Name:</label>
-        <input type="url" name="name">
+        <input type="text" name="name">
     </p>
     <p>
         <label for="description">Description:</label>

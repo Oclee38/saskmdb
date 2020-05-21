@@ -11,7 +11,7 @@
         <ul>
             {% for Category in Categories  %}
                 <li>
-                    <a href="{% url 'main:details' Category %}">{{ Category }}</a>
+                    <a href="{% url 'main:details' Category.cat_name %}">{{ Category.cat_name }}</a>
                 </li>
             {% endfor %}
         </ul>

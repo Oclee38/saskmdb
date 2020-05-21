@@ -8,5 +8,4 @@ urlpatterns = [
     path('addlink/', views.addlink, name='add_link'),
     path('addcat/', views.addcategory, name='add_cat'),
     path('<str:cat_name>/', views.details, name='details'),
-    
 ]
