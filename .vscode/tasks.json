@@ -24,7 +24,7 @@
         {
             "label": "Run CSS main",
             "type": "shell",
-            "command": "npx tailwindcss build base.css -o kmdb/main/static/css/main.css",
+            "command": "npx tailwindcss build base.css -o kmdb/main/static/main/css/main.css",
             "problemMatcher": []
         }
     ]
