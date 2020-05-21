@@ -1,1 +1,1 @@
-web: gunicorn kmdb/kmdb.wsgi
+web: gunicorn kmdb.wsgi
