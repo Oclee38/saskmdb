@@ -1,1 +1,1 @@
-web: gunicorn kmdb.wsgi
+web: gunicorn --pythonpath kmdb kmdb.wsgi
