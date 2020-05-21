@@ -6,11 +6,12 @@
     <title>KMDB | Home</title>
 </head>
 <body>
+    <a href="/addlink">Add new Document</a>
     {% if Categories %}
         <ul>
             {% for Category in Categories  %}
                 <li>
-                    <a href="/{{Category}}">{{ Category }}</a>
+                    <a href="{% url 'main:details' Category %}">{{ Category }}</a>
                 </li>
             {% endfor %}
         </ul>
