@@ -1,4 +1,5 @@
 from django.db import models
+from tinymce.models import HTMLField
 
 # Create your models here.
 
@@ -18,12 +19,14 @@ class Tag(models.Model):
         return self.tag_name
 
 
-class Item(models.Model):
+class Article(models.Model):
+    name = models.CharField(max_length=80)
     url_link = models.URLField('URL', unique=True)
     data_added = models.DateTimeField('Added on')
     category = models.ForeignKey(Categorie, on_delete=models.CASCADE)
-    text = models.TextField('Content', max_length=4069)
+    text = HTMLField('Content', max_length=4069)
     tags = models.ManyToManyField(Tag, related_name='items')
+    approved = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.url_link
+        return self.name

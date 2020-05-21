@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    <script src="https://kit.fontawesome.com/c5e6701767.js" crossorigin="anonymous"></script>
+    <title>SAS KMDB | {% block title %}{% endblock title %}</title>
+</head>
+
+<body>
+    <header class="flex items-center justify-around h-16 border-b border-orange-500 z-100">
+        <div>
+            <a href="/">
+                <img class="h-12" src="{% static 'main/images/logo.png' %}" alt="">
+            </a></div>
+        <div>
+            <a class="hover:bg-orange-600 px-4 py-2 hover:text-white rounded" href="/">Home</a>
+            <a class="hover:bg-orange-600 px-4 py-2 hover:text-white rounded" href="/admin">Admin</a>
+        </div>
+    </header>
+
+    <div class="flex ">
+        <div class="flex justify-around w-2/12  h-screen bg-orange-200 pt-6 border-r border-orange-500 z-90">
+            <section class="flex flex-col ">
+                {% block side-menu %}
+
+                {% endblock side-menu %}
+            </section>
+        </div>
+        <section class="flex justify-around w-10/12">
+            {% block content %}
+
+            {% endblock content %}
+        </section>
+    </div>
+</body>
+
+</html>

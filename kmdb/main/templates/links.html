@@ -1,27 +1,48 @@
-<h1>
-    <!-- Set Header with Category Name -->
-{{ category.cat_name }}
-</h1>
-<p>
-    <!-- Set the Description -->
-{{ category.cat_description }}
-</p>
-<!-- Get all links / items with category -->
-{% for link in links %}
-<p>
-<a href="{{ link.url_link }}" target="_blank">{{ link.url_link }}</a>
-</p> 
-<p>
-    {{ link.text }}
-</p>
+{% extends 'base.html' %}
+{% block title %}
+{{category.cat_name}}
+{% endblock title %}
 
-<!-- Get all Tags in article -->
-{% for tag in link.tags.all %}
+
+{% block content %}
+
+{% if not links %}
+<p>No article created yet for {{category.cat_name}}</p>
+{% else %}
+<div class="flex flex-col text-center">
+    <h1 class="text-center text-3xl">
+        <!-- Set Header with Category Name -->
+        {{ category.cat_name }}
+    </h1>
     <p>
-        {{ tag }}
+        <!-- Set the Description -->
+        {{ category.cat_description }}
     </p>
+    {% for link in links %}
+    <div class="border border-orange-300 p-10 mx-10">
+        <p>
+            {{ link.text|safe }}
+        </p>
+        <p class="text-left">
+            link: <a class="text-orange-700 underline" href="{{ link.url_link }}" target="_blank">link to document</a>
+        </p>
+
+
+        <!-- Get all Tags in article -->
+        <div class="flex">
+            <p class="mr-4">
+                Tags:
+            </p>
+            {% for tag in link.tags.all %}
+            <p class="mr-4">
+                {{ tag }}
+            </p>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
 {% endfor %}
-
-
-
-{% endfor %}
+{% endif %}
+{% endblock content %}

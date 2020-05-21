@@ -2,7 +2,7 @@ from django.shortcuts import (render, get_object_or_404, redirect)
 from datetime import datetime
 
 
-from .models import Categorie, Item
+from .models import Categorie, Article
 # Create your views here.
 
 
@@ -24,10 +24,15 @@ def details(request, cat_name):
         Renders the links.html file with all links with this category
     """
     category = get_object_or_404(Categorie, cat_name=cat_name)
-    links = Item.objects.filter(category=category.pk)
+    links = Article.objects.filter(category=category.pk)
 
-    for link in links:
-        tags = link.tags.all()
+    if not links:
+        # return redirect('main:index')
+        tags = ''
+    else:
+        for link in links:
+            tags = link.tags.all()
+
     context = {'category': category, 'links': links, 'tags': tags}
     return render(request, 'links.html', context)
 
@@ -36,15 +41,15 @@ def addlink(request):
     """
     User can create new link - TODO must be logged in user
     return:
-        GET: Shows the form to add new items
-        POST: Saves new item to DB and redirect to home page
+        GET: Shows the form to add new Article
+        POST: Saves new Article to DB and redirect to home page
     """
     if request.method == 'POST':
         cat = Categorie.objects.get(cat_name=request.POST['category'])
         time = datetime.now()
         url = request.POST['Link']
-        item = Item(url_link=url, category=cat, data_added=time)
-        item.save()
+        Article = Article(url_link=url, category=cat, data_added=time)
+        Article.save()
         return redirect('main:index')
 
     categories = Categorie.objects.all()
