@@ -6,6 +6,13 @@
 </p>
 {% for link in links %}
 <p>
-<a href="{{ link.url_link }}">{{ link.url_link }}</a>
+<a href="{{ link.url_link }}" target="_blank">{{ link.url_link }}</a>
 </p> 
+<p>
+    {{ link.text }}
+</p>
+
+{% for tag in tags %}
+    <p>{{ tag }}</p>
+{% endfor %}
 {% endfor %}

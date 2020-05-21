@@ -14,7 +14,7 @@
    <form method="POST">
        {% csrf_token %}
        <p><label for="Link">URL:</label>
-       <input type="text" name="Link"></p>
+       <input type="url" name="Link"></p>
        <p>
            <label for="cat">Category</label>
            <select name="category" id="cat">

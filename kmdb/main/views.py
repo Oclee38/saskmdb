@@ -1,6 +1,6 @@
 from django.shortcuts import (render, get_object_or_404, redirect)
 from datetime import datetime
-from django.views import generic
+
 
 from .models import Category, Item
 # Create your views here.
@@ -15,7 +15,10 @@ def index(request):
 def details(request, cat_name):
     category = get_object_or_404(Category, cat_name=cat_name)
     links = Item.objects.filter(category=category.pk)
-    context = {'category': category, 'links': links}
+
+    for link in links:
+        tags = link.tags.all()
+    context = {'category': category, 'links': links, 'tags': tags}
     return render(request, 'links.html', context)
 
 
@@ -35,12 +38,9 @@ def addlink(request):
 
 def addcategory(request):
     if request.method == 'POST':
-        cat = Category(cat_name=request.POST['name'], cat_description=request.POST['description'] )
+        cat_name = request.POST['name']
+        cat_desc = request.POST['description']
+        cat = Category(cat_name=cat_name, cat_description=cat_desc)
         cat.save()
         return redirect('main:index')
     return render(request, 'addcat.html')
-
-
-class DetailView(generic.DetailView):
-    model = Item
-    template_name = 'links.html'
