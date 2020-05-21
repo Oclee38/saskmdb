@@ -1,9 +1,12 @@
 <h1>
+    <!-- Set Header with Category Name -->
 {{ category.cat_name }}
 </h1>
 <p>
+    <!-- Set the Description -->
 {{ category.cat_description }}
 </p>
+<!-- Get all links / items with category -->
 {% for link in links %}
 <p>
 <a href="{{ link.url_link }}" target="_blank">{{ link.url_link }}</a>
@@ -12,7 +15,13 @@
     {{ link.text }}
 </p>
 
-{% for tag in tags %}
-    <p>{{ tag }}</p>
+<!-- Get all Tags in article -->
+{% for tag in link.tags.all %}
+    <p>
+        {{ tag }}
+    </p>
 {% endfor %}
+
+
+
 {% endfor %}

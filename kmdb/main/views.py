@@ -2,18 +2,28 @@ from django.shortcuts import (render, get_object_or_404, redirect)
 from datetime import datetime
 
 
-from .models import Category, Item
+from .models import Categorie, Item
 # Create your views here.
 
 
 def index(request):
-    Categories = Category.objects.all()
+    """ Index View - Main page
+    TODO: Change this to new view for List of Categories
+    """
+    Categories = Categorie.objects.all()
     context = {'Categories': Categories}
     return render(request, 'index.html', context)
 
 
 def details(request, cat_name):
-    category = get_object_or_404(Category, cat_name=cat_name)
+    """
+    Datails page
+    Arguments:
+        Category name as cat_name
+    Return:
+        Renders the links.html file with all links with this category
+    """
+    category = get_object_or_404(Categorie, cat_name=cat_name)
     links = Item.objects.filter(category=category.pk)
 
     for link in links:
@@ -23,15 +33,21 @@ def details(request, cat_name):
 
 
 def addlink(request):
+    """
+    User can create new link - TODO must be logged in user
+    return:
+        GET: Shows the form to add new items
+        POST: Saves new item to DB and redirect to home page
+    """
     if request.method == 'POST':
-        cat = Category.objects.get(cat_name=request.POST['category'])
+        cat = Categorie.objects.get(cat_name=request.POST['category'])
         time = datetime.now()
         url = request.POST['Link']
         item = Item(url_link=url, category=cat, data_added=time)
         item.save()
         return redirect('main:index')
 
-    categories = Category.objects.all()
+    categories = Categorie.objects.all()
     context = {'categories': categories, }
     return render(request, 'addlink.html', context)
 
@@ -40,7 +56,7 @@ def addcategory(request):
     if request.method == 'POST':
         cat_name = request.POST['name']
         cat_desc = request.POST['description']
-        cat = Category(cat_name=cat_name, cat_description=cat_desc)
+        cat = Categorie(cat_name=cat_name, cat_description=cat_desc)
         cat.save()
         return redirect('main:index')
     return render(request, 'addcat.html')
